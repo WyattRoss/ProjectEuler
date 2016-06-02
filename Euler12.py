@@ -1,12 +1,19 @@
-import TriTypeSets
-
-def divisorCount(N):
-    return len([x for x in range(1,N/2) if not divmod(N,x)[1]])
-TriNumber = 1500
-while 1:
-	c = TriTypeSets.nthTri(TriNumber)
-	if divisorCount(c) > 500:
-		print c
-		break
-	TriNumber += 1
-	print divisorCount(c)
+import TriTypeSets, math
+def divisors(n):
+    number_of_factors = 0
+    for i in xrange(1, int(math.ceil(math.sqrt(n)))+1):
+        if n % i == 0:
+            number_of_factors +=2
+        if i*i==n:
+            number_of_factors -=1
+    return number_of_factors
+TriNumber = 500
+for n in xrange(1,1000000):
+    Tn=(n*(n+1))/2
+    if n%2==0:
+        cnt=divisors(n/2)*divisors(n+1)
+    else:
+        cnt=divisors(n)*divisors((n+1)/2)
+    if cnt >= 500:
+        print Tn
+        break
